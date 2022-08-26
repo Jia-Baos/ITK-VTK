@@ -137,8 +137,10 @@
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="标头.h" />
-    <ClInclude Include="标头1.h" />
+    <ClInclude Include="Registration1-2.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Registration1-1.h" />
+    <ClInclude Include="Registration2-1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

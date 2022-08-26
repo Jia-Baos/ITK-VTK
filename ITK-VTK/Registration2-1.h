@@ -1,3 +1,4 @@
+#pragma once
 /*=========================================================================
  *
  *  Copyright NumFOCUS
@@ -23,11 +24,7 @@
  //    ARGUMENTS: DeformableRegistration2Field.mha
  //  Software Guide : EndCommandLineArgs
 
-#include <iostream>
-#include <string>
 
-#include <itkImage.h>
-#include <itkPNGImageIOFactory.h>   // PNG
 #include "itkImageFileReader.h"
 #include "itkImageFileWriter.h"
 
@@ -95,17 +92,15 @@ public:
 int
 main(int argc, char* argv[])
 {
-    // …Ë÷√∂¡–¥Õº∆¨µƒ¬∑æ∂
-    std::string Args[5];
-
-    Args[0] = "D:\\Code-VS\\picture\\demons-data\\lena0.png";
-    Args[1] = "D:\\Code-VS\\picture\\demons-data\\lena1.png";
-    Args[2] = "D:\\Code-VS\\picture\\demons-data\\moving2fixed.png";
-    Args[3] = "D:\\Code-VS\\picture\\demons-data\\res_image_after.png";
-    Args[4] = "D:\\Code-VS\\picture\\demons-data\\res_image_before.png";
-
-    // Init the environment
-    itk::PNGImageIOFactory::RegisterOneFactory();
+    if (argc < 4)
+    {
+        std::cerr << "Missing Parameters " << std::endl;
+        std::cerr << "Usage: " << argv[0];
+        std::cerr << " fixedImageFile movingImageFile ";
+        std::cerr << " outputImageFile " << std::endl;
+        std::cerr << " [outputDisplacementFieldFile] " << std::endl;
+        return EXIT_FAILURE;
+    }
 
     // Software Guide : BeginLatex
     //
@@ -128,8 +123,8 @@ main(int argc, char* argv[])
     auto fixedImageReader = FixedImageReaderType::New();
     auto movingImageReader = MovingImageReaderType::New();
 
-    fixedImageReader->SetFileName(Args[0]);
-    movingImageReader->SetFileName(Args[1]);
+    fixedImageReader->SetFileName(argv[1]);
+    movingImageReader->SetFileName(argv[2]);
 
 
     // Software Guide : BeginLatex
@@ -360,7 +355,7 @@ main(int argc, char* argv[])
 
     auto writer = WriterType::New();
 
-    writer->SetFileName(Args[2]);
+    writer->SetFileName(argv[3]);
     writer->SetInput(warper->GetOutput());
     writer->Update();
 
